@@ -1,6 +1,16 @@
 {
     "files.associations": {
         "xstring": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "queue": "cpp",
+        "type_traits": "cpp",
+        "xutility": "cpp",
+        "ostream": "cpp",
+        "string": "cpp"
     }
 }

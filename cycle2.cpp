@@ -4,6 +4,7 @@
 #include<string>
 #include <algorithm>
 #include <vector>
+#include<sstream>
 using namespace std;
 struct cycles
 {
@@ -29,7 +30,7 @@ int main(int argc,char *argv[])
 	fgets(newline,10,fp);
 
 	sscanf(newline,"%i %i",&nodenum,&edgenum);
-
+    int target=edgenum-nodenum+1;
     int A[nodenum][nodenum];//儲存連線的點
     int minimum[nodenum][nodenum]={0};
     for(i=0;i<nodenum;i++)
@@ -57,6 +58,7 @@ int main(int argc,char *argv[])
     int check_re[20000];
     int check_cycle[nodenum];
     int costsum[20000];
+    bool already[nodenum][nodenum]={false};
     for(i=0;i<20000;i++)
         for(j=0;j<nodenum;j++)
             order[i][j]=-1;
@@ -177,14 +179,14 @@ int main(int argc,char *argv[])
 
     }
    
-   
+   int now=0;
     sort(ans, ans+cycle,  mycompare);
-     for(i=0;i<ansnum;i++)
+     for(i=0;now<target;i++)
     {
-       cout<<ans[i].string<<" "<<ans[i].cost<<" "<<endl;
-        vector<string> v;
+      
+       /* vector<string> v;
 
-    while (1) {
+        while (1) {
         v.push_back(ans[i].string.substr(0, ans[i].string.find("->"))); // 從第一個空白分割出左側子字串放入vector
         ans[i].string = ans[i].string.substr(ans[i].string.find("->") + 1, ans[i].string.length()); // 從第一個空白分割出右側子字串設為s
 
@@ -193,9 +195,65 @@ int main(int argc,char *argv[])
             v.push_back(ans[i].string);
             break;
         }
-    }
+        
+        
+        }*/
+        string node;
+        int ansnode[20000];
+        int ansnodesum=0;
+        for(int h=0;h<(ans[i].string).length();h++)
+        {
+            if((ans[i].string[h]!='-')&&(ans[i].string[h]!='>'))
+               {
+                node+=ans[i].string[h];
+               
+               }
+            else if(ans[i].string[h]=='-')
+                {
+                    ansnode[ansnodesum]=stoi(node);
+                   
+                    ansnodesum++;
+                    node="";
 
-    cout << v.size() << endl; // 3
+                }
+
+        }
+        ansnode[ansnodesum]=stoi(node);
+        //cout<<ansnodesum<<endl;
+        for(int g=0;g<=ansnodesum;g++)
+        {
+            //cout<<ansnode[g]<<" ";
+        }
+        //cout<<endl;
+        
+        //cout<<(ans[i].string).length()<<endl;
+        int yes=0;
+        for(j=0;j<ansnodesum;j++)
+        {
+            if(already[(ansnode[j])][ansnode[j+1]]==true||already[ansnode[j+1]][ansnode[j]]==true)
+            {
+                yes++;
+            }
+        }
+        if(yes==ansnodesum)
+        {
+
+        }
+        else
+        {
+            cout<<ans[i].string<<" "<<ans[i].cost<<" "<<endl;
+            
+            now++;
+             for(j=0;j<ansnodesum;j++)
+            {
+            already[ansnode[j]][ansnode[j+1]]=true;
+            already[ansnode[j+1]][ansnode[j]]=true;
+           
+            }
+
+        }
+    
+    
    
     }
      printf("%d cycles\n",cycle);
