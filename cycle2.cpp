@@ -241,7 +241,7 @@ int main(int argc,char *argv[])
         }
         else
         {
-            cout<<ans[i].string<<" "<<ans[i].cost<<" "<<endl;
+            cout<<ans[i].string<<" "<<endl;
             
             now++;
              for(j=0;j<ansnodesum;j++)
@@ -256,7 +256,7 @@ int main(int argc,char *argv[])
     
    
     }
-     printf("%d cycles\n",cycle);
+     printf("%d cycles\n",target);
     getchar();
     
 }
