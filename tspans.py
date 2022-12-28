@@ -75,7 +75,11 @@ def TSPRec(adj, curr_bound, curr_weight,
 		if (adj[curr_path[level-1]][i] != 0 and
 							visited[i] == False):
 			temp = curr_bound
+			print("temp:",temp)
 			curr_weight += adj[curr_path[level - 1]][i]
+			print("path",curr_path[level - 1],i)
+			
+			print("weight:",curr_weight)
 
 			# different computation of curr_bound
 			# for level 2 from the other levels
@@ -85,11 +89,12 @@ def TSPRec(adj, curr_bound, curr_weight,
 			else:
 				curr_bound -= ((secondMin(adj, curr_path[level - 1]) +
 								firstMin(adj, i)) / 2)
-
+			print("bound:",curr_bound)
 			# curr_bound + curr_weight is the actual lower bound
 			# for the node that we have arrived on.
 			# If current lower bound < final_res,
 			# we need to explore the node further
+			print("cost:",final_res)
 			if curr_bound + curr_weight < final_res:
 				curr_path[level] = i
 				visited[i] = True
@@ -97,7 +102,7 @@ def TSPRec(adj, curr_bound, curr_weight,
 				# call TSPRec for the next level
 				TSPRec(adj, curr_bound, curr_weight,
 					level + 1, curr_path, visited)
-
+			
 			# Else we have to prune the node by resetting
 			# all changes to curr_weight and curr_bound
 			curr_weight -= adj[curr_path[level - 1]][i]
